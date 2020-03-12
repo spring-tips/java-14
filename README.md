@@ -1,8 +1,14 @@
-# Java 14 
 
-Hi Spring fans! Welcome to another installment of Spring Tips! In this installment, we'e going to look at the new features in Java 14 and their use in building Spring Boot-based applications. 
+Hi, Spring fans! Welcome to another installment of Spring Tips! In this installment, we're going to look at the new features in Java 14 and their use in building Spring Boot-based applications. 
 
-To get started, we need to use the latest and greatest version of Java, Java 14, which isn't - just yet - released yet. It is due to be shipped early 2020. You can download early access releases on [Java.net](https://jdk.java.net/). You might also consider using [SDKManager (`sdk`)](http://sdkman.io), which makes installing new JVM editions a trivial matter indeed. 
+
+Speaker: [Josh Long (@starbuxman)](http://twitter.com/starbuxman)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mr-7kGy8Yao" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+To get started, we need to use the latest and greatest version of Java, Java 14, which isn't - just yet - released yet. It is due to be shipped in early 2020. You can download early access releases on [Java.net](https://jdk.java.net/). You might also consider using [SDKManager (`sdk`)](http://sdkman.io), which makes installing new JVM editions a trivial matter indeed. 
 
 Remember, there are new Java releases every 6 months. These new releases are usable in production but are only supported for the six months between one release and the next. Every now and then, the Java project also releases a long-term support (LTS) release. That release is currently Java 11. Java 14 is only a viable target for production until Java 15 comes out. And indeed, we're going to look at a lot of _preview features_, which one might argue shouldn't be in production at all. You've been warned! 
 
@@ -24,7 +30,7 @@ Make sure that you specify the version of Java by changing the `java.version` pr
 </properties>
 ```
 
-This allows our build to use Java 14 and all the released featues in that release, but to really experience the novelty of Java 14, we need to turn on the _preview features_ - features that are shipped in the release but that are not active by default. 
+This allows our build to use Java 14 and all the released features in that release, but to really experience the novelty of Java 14, we need to turn on the _preview features_ - features that are shipped in the release but that are not active by default. 
 
 In the `<plugins>...</plugins>` stanza, add the following plugin configurations to enable Java 14's preview features.  
 
@@ -49,7 +55,7 @@ In the `<plugins>...</plugins>` stanza, add the following plugin configurations 
 </plugin>
 ```
 
-Now you're ready to go! Let's look at some Java code. The Spring Initializr was nice enough to give us a project and a skeletal entrypoint class: 
+Now you're ready to go! Let's look at some Java code. The Spring Initializr was nice enough to give us a project and a skeletal entry point class: 
 
 ```java
 package com.example.fourteen;
@@ -89,7 +95,7 @@ create table people (
 );
 ```
 
-At this point, I'd normally either slog through writing the Javabean object using my IDE's code-generation facilities, or I'd use Lombok to annotate my way to a compiler-synthesized object that has getters, setters, `toString`, and an implementatino of `equals`. I might even make some begrudging reference to other languages' ability to make this tedious kind of work trivial. Scala supports _case classes_. Kotlin supports _data classes_. 
+At this point, I'd normally either slog through writing the Javabean object using my IDE's code-generation facilities, or I'd use Lombok to annotate my way to a compiler-synthesized object that has getters, setters, `toString`, and an implementation of `equals`. I might even make some begrudging reference to other languages' ability to make this tedious kind of work trivial. Scala supports _case classes_. Kotlin supports _data classes_. 
 
 And Java 14 supports _record_s. 
 
@@ -98,13 +104,13 @@ record Person(Integer id, String name, int emotionalState) {
 }
 ```
 
-Not bad eh? This syntax packs a whollop! It gives us a new object with a constructor and constructor parameters, properties, an implementation of `equals` and `toString` and more. We can instantiate an instance of this object just as with any other object. Try to dereference properties in the object and you'll that our constructor properties have become `id()`/`id(int)`, `name()`/`name(String)`, and `emotionalState()`/`emotionalState(int)`. Not bad for so little! 
+Not bad eh? This syntax packs a wallop! It gives us a new object with a constructor and constructor parameters, properties, implementation of `equals` and `toString` and more. We can instantiate an instance of this object just as with any other object. Try to dereference properties in the object and you'll that our constructor properties have become `id()`/`id(int)`, `name()`/`name(String)`, and `emotionalState()`/`emotionalState(int)`. Not bad for so little! 
 
 
 
 Let's look at the implementation of  `PeopleService`. 
 
-The `PeopleService` uses the `JdbcTemplate` to make short work of turning results from a database query into Java objects. This should be fairly straightforward if you've ever used the `JdbcTemplate` (who hasn't)? I've left some parts unimplemeneted so we can revisit those directly. 
+The `PeopleService` uses the `JdbcTemplate` to make short work of turning results from a database query into Java objects. This should be fairly straightforward if you've ever used the `JdbcTemplate` (who hasn't)? I've left some parts unimplemented so we can revisit those directly. 
 
 ```java
 
@@ -138,7 +144,7 @@ class PeopleService {
 ```
 
 
-First and foremost, we're going to use some SQL queries. I've got to great pains in my life to avoid having to type SQL queries in Java code. My goodness, would people so often have used ORMs   if they knew  they could elequently express SQL queries as Java `String`s? For anything even mildly complex, I extract my SQL queries into property files whcih are then loaded with Spring's configuration property mechanism.
+First and foremost, we're going to use some SQL queries. I've got to great pains in my life to avoid having to type SQL queries in Java code. My goodness, would people so often have used ORMs if they knew they could eloquently express SQL queries as Java ` Strings`? For anything even mildly complex, I extract my SQL queries into property files which are then loaded with Spring's configuration property mechanism.
 
 But, we can do better in Java 14! Multiline strings have come to Java at long last! It now joins the ranks of Python, Ruby, C++, C#, Rust, PHP, Kotlin, Scala, Groovy, Go, JavaScript, Clojure, and a dozen other languages besides. I'm so happy it's finally here! 
 
@@ -162,7 +168,7 @@ So nice, that! There are methods you can use to trim the margin and so on. You c
 
 Let's look at that `create` method. 
 
-The storage of the `Person`'s `emotionalState` in the datbase as an `int` is an implementation detail. I'd prefer to not have to bubble that up to the user. Let's use an enum to describe the emotional state for each `Person`:
+The storage of the `Person`'s `emotionalState` in the database as an `int` is an implementation detail. I'd prefer to not have to bubble that up to the user. Let's use an enum to describe the emotional state for each `Person`:
 
 ```java
 enum EmotionalState {
@@ -270,5 +276,5 @@ class Runner {
 
 Run that and you'll see that the object has been written to the database and - best of all - you got a spiffy new `toString()` result when printing the resulting `Person` object! 
 
-We've only begun to scratch the surface of all the new featurse in Java 14! There are a ton of new features in the language that we've begun to introduce in this video, and considerably more features for security and performance in the  runtime itself. I can not more heartily recommend that you find a way off of your older versions of the JDK (looking at you, Java 8 users!) and move to the newest ones. 
+We've only begun to scratch the surface of all the new features in Java 14! There are a ton of new features in the language that we've begun to introduce in this video and considerably more features for security and performance in the runtime itself. I can not more heartily recommend that you find a way off of your older versions of the JDK (looking at you, Java 8 users!) and move to the newest ones. 
 
